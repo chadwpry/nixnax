@@ -14,6 +14,9 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-flake.url = "github:srid/nixos-flake";
+
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs@{
@@ -69,6 +72,17 @@
               ./home-manager/shadow.nix
             ];
           };
+
+        nixos-flake = {
+          primary-inputs = [
+            "home-manager"
+            "nix-darwin"
+            "nix-index-database"
+            "nixos-flake"
+            "nixos-wsl"
+            "nixpkgs"
+          ];
+        };
 
         packages.default = self'.packages.activate;
       };
