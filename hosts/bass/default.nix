@@ -1,5 +1,13 @@
 { config, lib, pkgs, nixpkgs, ... }:
 {
+  imports = [
+    ./locale.nix
+  ];
+
+  networking = {
+    hostName = "bass";
+  };
+
   nix = {
     useDaemon = true;
     gc = {
@@ -13,16 +21,22 @@
     };
   };
 
-  networking.hostName = "bass";
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  programs.zsh.enable = true;
-
   security.pam.enableSudoTouchIdAuth = true;
-  services.nix-daemon.enable = true;
-  services.nix-daemon.enableSocketListener = true;
 
-  users.users.shadow.home = "/Users/shadow";
+  services.nix-daemon = {
+    enable = true;
+    enableSocketListener = true;
+  };
+
+  users = {
+    users.shadow = {
+      group = "shadow";
+      home = "/Users/shadow";
+      isNormalUser = true;
+    };
+  };
 
   # https://github.com/LnL7/nix-darwin/tree/master/modules/system/defaults
   system = {
@@ -67,5 +81,7 @@
       spans-displays = false;
     };
   };
+
+  system.stateVersion = "24.05";
 }
 

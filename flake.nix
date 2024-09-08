@@ -41,7 +41,6 @@
           imports = [
             ./hosts/crash
             ./common/configuration.nix
-            ./common/users.nix
             ./common/autoupgrade.nix
             nixos-wsl.nixosModules.default
             home-manager.nixosModules.home-manager {

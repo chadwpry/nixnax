@@ -1,8 +1,8 @@
-{ ... }: {
+{ gitUser, gitEmail, ... }: {
   programs.git = {
     enable = true;
-    userName = "Chad W Pry";
-    userEmail = "chad.pry@gmail.com";
+    userName = "${gitUser}";
+    userEmail = "${gitEmail}";
     aliases = {
       st = "status";
       ci = "commit";

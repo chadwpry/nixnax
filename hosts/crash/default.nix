@@ -25,7 +25,15 @@
 
   system.stateVersion = "24.05";
 
-  users.users.shadow.isNormalUser = true;
+  users = {
+    defaultUserShell = pkgs.zsh;
+
+    users.shadow = {
+      isNormalUser = true;
+      description = "Chad W Pry";
+      extraGroups = [ "docker" "networkmanager" "wheel" ];
+    };
+  };
 
   wsl = {
     defaultUser = "shadow";

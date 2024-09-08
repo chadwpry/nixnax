@@ -6,7 +6,6 @@
     cowsay
     ffmpeg
     fortune
-    htop
     nb
     neovim
     (pkgs.nerdfonts.override {
@@ -28,9 +27,19 @@
     ./programs/bat.nix
     ./programs/direnv.nix
     ./programs/eza.nix
-    ./programs/git.nix
+    ./programs/fastfetch.nix
+    (import ./programs/git.nix {
+      gitUser = "Chad W Pry";
+      gitEmail = "chad.pry@gmail.com";
+    })
+    ./programs/htop.nix
     ./programs/jq.nix
+    ./programs/less.nix
+    ./programs/lesspipe.nix
     ./programs/nix-index.nix
+    ./programs/pandoc.nix
+    ./programs/readline.nix
+    ./programs/ripgrep.nix
     ./programs/starship.nix
     ./programs/tmux.nix
     ./programs/zsh.nix
