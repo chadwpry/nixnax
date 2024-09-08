@@ -32,9 +32,8 @@
 
   users = {
     users.shadow = {
-      group = "shadow";
+      description = "Chad W Pry";
       home = "/Users/shadow";
-      isNormalUser = true;
     };
   };
 
@@ -82,6 +81,6 @@
     };
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = 4;
 }
 
