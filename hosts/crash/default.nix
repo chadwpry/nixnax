@@ -5,7 +5,6 @@
   ];
 
   networking = {
-    networkingmanager = true;
     hostName = "crash";
   };
 
@@ -22,7 +21,6 @@
 
   services = {
     netdata.enable = true;
-    openssh.enable = true;
   };
 
   system.stateVersion = "24.05";
