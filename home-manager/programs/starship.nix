@@ -3,8 +3,8 @@
     enable = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
-    settings = {
-      add_newline = false;
-    };
+    # settings = {
+    #   add_newline = false;
+    # };
   };
 }
