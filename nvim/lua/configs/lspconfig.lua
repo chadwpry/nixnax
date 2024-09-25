@@ -50,6 +50,21 @@ local servers = {
       },
     },
   },
+  -- rust_analyzer = {
+  --   check = {
+  --     command = "clippy",
+  --   },
+  --   diagnostics = {
+  --     enable = true,
+  --   },
+  --   filetypes = { "rust" },
+  --   root_dir = util.root_pattern("Cargo.toml"),
+  --   settings = {
+  --     cargo = {
+  --       allFeatures = true,
+  --     },
+  --   },
+  -- },
 }
 
 -- lsps with default config

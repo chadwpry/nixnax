@@ -1,3 +1,18 @@
+-- function dump(o)
+--   if type(o) == "table" then
+--     local s = "{ "
+--     for k, v in pairs(o) do
+--       if type(k) ~= "number" then
+--         k = '"' .. k .. '"'
+--       end
+--       s = s .. "[" .. k .. "] = " .. dump(v) .. ","
+--     end
+--     return s .. "} "
+--   else
+--     return tostring(o)
+--   end
+-- end
+
 return {
   {
     "folke/trouble.nvim",
@@ -54,21 +69,24 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
-        "lua-language-server",
-        "stylua",
-        "html-lsp",
+        "black",
+        "codelldb",
+        "cpptools",
         "css-lsp",
-        "prettier",
+        "delve",
         "eslint_d",
-        -- "rubocop", # install ruby development environment first
+        "lua-language-server",
         "gopls",
         "gofumpt",
         "goimports-reviser",
         "golines",
-        "delve",
-        "black",
+        "html-lsp",
         "isort",
+        "prettier",
         "pylint",
+        -- "rubocop", # install ruby development environment first
+        "rust-analyzer",
+        "stylua",
       },
     },
   },
@@ -93,9 +111,9 @@ return {
       "leoluz/nvim-dap-go",
       "nvim-neotest/nvim-nio",
     },
-    -- opts = function()
-    --   require("configs.nvim-dap")
-    -- end,
+    config = function()
+      require("configs.nvim-dap")
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
@@ -125,5 +143,62 @@ return {
       { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
+  },
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^5",
+    lazy = false,
+    config = function()
+      local mason_registry = require("mason-registry")
+      local codelldb = mason_registry.get_package("codelldb")
+      local extension_path = codelldb:get_install_path() .. "/extension/"
+      local codelldb_path = extension_path .. "adapter/codelldb"
+      local liblldb_path = extension_path .. "lldb/lib/liblldb.dylib"
+      local cfg = require("rustaceanvim.config")
+
+      vim.g.rustaceanvim = {
+        dap = {
+          adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+        },
+        server = {
+          settings = {
+            rust_analyzer = {
+              cargo = {
+                allFeatures = true,
+              },
+              check = {
+                command = "clippy",
+              },
+              -- diagnostics = {
+              --   enable = true,
+              -- },
+            },
+          },
+        },
+      }
+    end,
+  },
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function()
+      vim.g.rustfmt_autosave = 1
+    end,
+  },
+  {
+    "saecki/crates.nvim",
+    ft = { "toml" },
+    config = function()
+      require("crates").setup({
+        completion = {
+          cmp = {
+            enabled = true,
+          },
+        },
+      })
+      require("cmp").setup.buffer({
+        sources = { { name = "crates " } },
+      })
+    end,
   },
 }
